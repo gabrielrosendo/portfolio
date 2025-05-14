@@ -48,7 +48,7 @@ export default function Page() {
           <div className="ml-auto flex items-center gap-2">
             <ThemeToggle />
             <Link
-              href="https://o4oavsqloi7a95at.public.blob.vercel-storage.com/RESUME_GMARCELINO-ZlztUzFKjyLWFlSZ84ZSG74LJ6iwnM.pdf"
+              href="https://o4oavsqloi7a95at.public.blob.vercel-storage.com/RESUME_GMARCELINO-21Q0hjTu69MMJzI1OSHxI3wBM2oSEb.pdf"
               target="_blank"
             >
               <Button variant="outline" className="gap-2">
