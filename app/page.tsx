@@ -266,6 +266,29 @@ export default function Page() {
             </div>
 
             <div className="mt-16 space-y-12">
+              {/* Mindex Experience */}
+              <div className="relative border-l border-muted-foreground/20 pl-8 before:absolute before:left-[-8px] before:top-0 before:h-4 before:w-4 before:rounded-full before:bg-primary before:content-['']">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <h3 className="text-xl font-semibold">AI Platform Engineer</h3>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Calendar className="h-4 w-4" />
+                    <span>June 2025 - Present</span>
+                  </div>
+                </div>
+                <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
+                  <Building className="h-4 w-4" />
+                  <span>Mindex | Rochester, NY (Remote)</span>
+                </div>
+                <div className="mt-4">
+                  <p className="font-medium">AI-Driven Documentation Retrieval System</p>
+                  <ul className="mt-2 space-y-2 text-muted-foreground">
+                    <li className="flex gap-2">
+                  
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
               {/* Paychex Experience */}
               <div className="relative border-l border-muted-foreground/20 pl-8 before:absolute before:left-[-8px] before:top-0 before:h-4 before:w-4 before:rounded-full before:bg-primary before:content-['']">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
