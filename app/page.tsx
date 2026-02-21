@@ -448,7 +448,7 @@ export default function Page() {
               </p>
             </div>
 
-            <div className="mt-16 grid gap-8 md:grid-cols-3">
+            <div className="mt-16 grid gap-8 md:grid-cols-2">
               <Card className="flex flex-col items-center justify-center p-6 text-center">
                 <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
                   <Mail className="h-8 w-8 text-primary" />
@@ -458,19 +458,6 @@ export default function Page() {
                 <Link href="mailto:gabrielrosendo72@gmail.com" className="mt-4">
                   <Button variant="outline" size="sm">
                     Send Email
-                  </Button>
-                </Link>
-              </Card>
-
-              <Card className="flex flex-col items-center justify-center p-6 text-center">
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                  <Phone className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold">Phone</h3>
-                <p className="mt-2 text-muted-foreground">+1 (623) 287-8628</p>
-                <Link href="tel:+16232878628" className="mt-4">
-                  <Button variant="outline" size="sm">
-                    Call Me
                   </Button>
                 </Link>
               </Card>
