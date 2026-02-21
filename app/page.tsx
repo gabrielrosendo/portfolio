@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Github, Linkedin, Mail, ArrowRight, Code, Database, Server, Calendar, Building, Phone } from "lucide-react"
+import { Github, Linkedin, Mail, ArrowRight, Code, Database, Server, Calendar, Building } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import ProjectCard from "./components/project-card"
@@ -83,9 +83,6 @@ export default function Page() {
                   <div className="mt-4 flex items-center gap-2 text-muted-foreground">
                     <Building className="h-4 w-4" />
                     <span>Phoenix, AZ 85017</span>
-                    <span className="mx-2">•</span>
-                    <Phone className="h-4 w-4" />
-                    <span>+1 (623) 287-8628</span>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-3">
