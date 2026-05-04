@@ -7,9 +7,16 @@ interface TextProjectCardProps {
   description: string
   link?: string
   tags: string[]
+  ctaLabel: string
 }
 
-export default function TextProjectCard({ title, description, link, tags }: TextProjectCardProps) {
+export default function TextProjectCard({
+  title,
+  description,
+  link,
+  tags,
+  ctaLabel,
+}: TextProjectCardProps) {
   return (
     <Card className="h-full">
       <CardContent className="p-4">
@@ -30,7 +37,7 @@ export default function TextProjectCard({ title, description, link, tags }: Text
         <CardFooter className="p-4 pt-0">
           <Link href={link} target="_blank" className="inline-flex items-center gap-2 text-sm hover:underline">
             <Github className="h-4 w-4" />
-            View on GitHub
+            {ctaLabel}
           </Link>
         </CardFooter>
       )}
