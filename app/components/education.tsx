@@ -1,4 +1,4 @@
-import { Calendar, GraduationCap, MapPin, Users } from "lucide-react"
+import { Calendar, GraduationCap, MapPin } from "lucide-react"
 
 export default function Education() {
   return (
@@ -23,16 +23,7 @@ export default function Education() {
         </div>
         <div className="mt-4 space-y-2 text-muted-foreground">
           <p>Cumulative GPA: 3.70</p>
-          <p>Honors and Awards: Provost Scholarship, Dean's list</p>
-          <div className="flex items-start gap-2 mt-4">
-            <Users className="h-4 w-4 mt-1 flex-shrink-0 text-primary" />
-            <div>
-              <p className="font-medium text-foreground">Student Leader at the Multicultural Office</p>
-              <p>
-                Promoting cultural diversity and inclusion through campus events and initiatives.
-              </p>
-            </div>
-          </div>
+          <p>Honors and Awards: Provost Scholarship, Dean&apos;s List</p>
         </div>
       </div>
 
