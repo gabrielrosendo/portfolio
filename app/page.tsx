@@ -1,9 +1,20 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Github, Linkedin, Mail, ArrowRight, Code, Database, Server, Calendar, Building } from "lucide-react"
+import {
+  Github,
+  Linkedin,
+  Mail,
+  ArrowRight,
+  Code,
+  Database,
+  Server,
+  Calendar,
+  Building,
+} from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import ProjectCard from "./components/project-card"
@@ -11,50 +22,95 @@ import TextProjectCard from "./components/text-project-card"
 import TechStack from "./components/tech-stack"
 import { ThemeToggle } from "@/components/theme-toggle"
 import Education from "./components/education"
+import { portfolioContent, type Locale } from "@/lib/portfolio-content"
+
+const locales: Locale[] = ["en", "pt"]
 
 export default function Page() {
+  const [locale, setLocale] = useState<Locale>("en")
+  const copy = portfolioContent[locale]
+  const currentYear = new Date().getFullYear()
+
+  useEffect(() => {
+    const savedLocale = window.localStorage.getItem("portfolio-locale")
+    if (savedLocale === "en" || savedLocale === "pt") {
+      setLocale(savedLocale)
+    }
+
+    // Always start the one-page portfolio at the hero on a fresh load.
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem("portfolio-locale", locale)
+    document.documentElement.lang = locale === "pt" ? "pt-BR" : "en"
+    document.title = copy.meta.title
+
+    const descriptionTag = document.querySelector('meta[name="description"]')
+    if (descriptionTag) {
+      descriptionTag.setAttribute("content", copy.meta.description)
+    }
+  }, [copy.meta.description, copy.meta.title, locale])
+
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 items-center px-4 md:px-6">
           <div className="mr-4 hidden md:flex">
             <Link className="mr-6 flex items-center space-x-2" href="/">
-              <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">
                 GM
               </div>
               <span className="hidden font-bold sm:inline-block">Gabriel Marcelino</span>
             </Link>
             <nav className="flex items-center space-x-6 text-sm font-medium">
               <Link href="#about" className="transition-colors hover:text-primary">
-                About
+                {copy.nav.about}
               </Link>
               <Link href="#projects" className="transition-colors hover:text-primary">
-                Projects
+                {copy.nav.projects}
               </Link>
               <Link href="#experience" className="transition-colors hover:text-primary">
-                Experience
+                {copy.nav.experience}
               </Link>
               <Link href="#skills" className="transition-colors hover:text-primary">
-                Skills
+                {copy.nav.skills}
               </Link>
               <Link href="#education" className="transition-colors hover:text-primary">
-                Education
+                {copy.nav.education}
               </Link>
               <Link href="#contact" className="transition-colors hover:text-primary">
-                Contact
+                {copy.nav.contact}
               </Link>
             </nav>
           </div>
           <div className="ml-auto flex items-center gap-2">
-            <ThemeToggle />
-            <Link
-              href="/Gabriel-Marcelino-Resume.docx"
-              download
-              target="_blank"
+            <div
+              aria-label={copy.controls.localeLabel}
+              className="flex items-center rounded-full border bg-background p-1"
+              role="group"
             >
+              {locales.map((option) => (
+                <button
+                  key={option}
+                  type="button"
+                  aria-pressed={locale === option}
+                  onClick={() => setLocale(option)}
+                  className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
+                    locale === option
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {option.toUpperCase()}
+                </button>
+              ))}
+            </div>
+            <ThemeToggle />
+            <Link href="/Gabriel-Marcelino-Resume.docx" download target="_blank">
               <Button variant="outline" className="gap-2">
                 <ArrowRight className="h-4 w-4" />
-                Resume
+                {copy.controls.resume}
               </Button>
             </Link>
           </div>
@@ -62,39 +118,31 @@ export default function Page() {
       </header>
 
       <main>
-        {/* Hero Section */}
         <section className="relative overflow-hidden bg-gradient-to-b from-background to-muted/30 py-20 md:py-32">
           <div className="absolute inset-0 z-0 opacity-30">
-            <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-primary/20 blur-3xl"></div>
-            <div className="absolute top-1/2 -left-24 h-64 w-64 rounded-full bg-secondary/20 blur-3xl"></div>
+            <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-primary/20 blur-3xl"></div>
+            <div className="absolute -left-24 top-1/2 h-64 w-64 rounded-full bg-secondary/20 blur-3xl"></div>
           </div>
           <div className="container relative z-10 mx-auto px-4 md:px-6">
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
               <div className="flex flex-col space-y-6">
                 <div>
                   <Badge className="mb-4 px-3 py-1 text-sm" variant="outline">
-                    AI Platform Engineer
+                    {copy.hero.badge}
                   </Badge>
                   <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl/none">
                     Gabriel <span className="text-primary">Marcelino</span>
                   </h1>
                   <p className="mt-4 max-w-[600px] text-muted-foreground md:text-xl">
-                    Software engineer focused on backend and applied AI systems,
-                    from LangGraph agents and MCP servers to retrieval workflows
-                    and cloud infrastructure.
+                    {copy.hero.description}
                   </p>
                   <div className="mt-4 flex items-center gap-2 text-muted-foreground">
                     <Building className="h-4 w-4" />
-                    <span>Phoenix, AZ</span>
+                    <span>{copy.hero.location}</span>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    "LLM platform engineering",
-                    "LangGraph agent workflows",
-                    "MCP servers + tool calling",
-                    "Cloud infrastructure",
-                  ].map((item) => (
+                  {copy.hero.tags.map((item) => (
                     <Badge key={item} variant="secondary" className="px-3 py-1">
                       {item}
                     </Badge>
@@ -104,19 +152,19 @@ export default function Page() {
                   <Link href="https://github.com/gabrielrosendo" target="_blank">
                     <Button variant="outline" size="lg" className="gap-2">
                       <Github className="h-5 w-5" />
-                      GitHub
+                      {copy.controls.github}
                     </Button>
                   </Link>
                   <Link href="https://www.linkedin.com/in/gabriel-marcelino-887766243/" target="_blank">
                     <Button variant="outline" size="lg" className="gap-2">
                       <Linkedin className="h-5 w-5" />
-                      LinkedIn
+                      {copy.controls.linkedin}
                     </Button>
                   </Link>
                   <Link href="mailto:gabrielrosendo72@gmail.com">
                     <Button variant="outline" size="lg" className="gap-2">
                       <Mail className="h-5 w-5" />
-                      Email
+                      {copy.controls.email}
                     </Button>
                   </Link>
                 </div>
@@ -151,333 +199,186 @@ export default function Page() {
           </div>
         </section>
 
-        {/* About Section */}
         <section id="about" className="py-16 md:py-24">
           <div className="container mx-auto px-4 md:px-6">
             <div className="mx-auto max-w-3xl text-center">
               <Badge className="mb-4" variant="outline">
-                About Me
+                {copy.about.badge}
               </Badge>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Building Production AI Systems
+                {copy.about.title}
               </h2>
               <p className="mt-4 text-muted-foreground md:text-lg">
-                I build backend and applied AI systems that turn LLM ideas into
-                practical products. At Mindex, I help maintain an internal
-                chat and agent platform used by 19,000+ employees. Before that,
-                I prototyped RAG-based meeting agents at Animistic.AI and built
-                an Azure-powered documentation assistant at Paychex.
+                {copy.about.description}
               </p>
             </div>
 
             <div className="mt-16 grid gap-8 md:grid-cols-3">
-              <Card className="overflow-hidden border-none bg-muted/50 shadow-sm transition-all hover:shadow-md">
-                <CardContent className="p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Code className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Backend Engineering</h3>
-                  <p className="mt-2 text-muted-foreground">
-                    Python-first development across APIs, integrations,
-                    JavaScript services, and systems that need to stay reliable
-                    in production.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="overflow-hidden border-none bg-muted/50 shadow-sm transition-all hover:shadow-md">
-                <CardContent className="p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Server className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Applied AI Systems</h3>
-                  <p className="mt-2 text-muted-foreground">
-                    LangGraph agents, MCP servers, tool-calling, model
-                    abstraction layers, RAG workflows, and Azure AI Services.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="overflow-hidden border-none bg-muted/50 shadow-sm transition-all hover:shadow-md">
-                <CardContent className="p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Database className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Cloud & Delivery</h3>
-                  <p className="mt-2 text-muted-foreground">
-                    Terraform, AWS, Azure, CI/CD, Git, and Linux for shipping
-                    production-grade systems with clean developer workflows.
-                  </p>
-                </CardContent>
-              </Card>
+              {copy.about.cards.map((card, index) => {
+                const Icon = [Code, Server, Database][index]
+
+                return (
+                  <Card
+                    key={card.title}
+                    className="overflow-hidden border-none bg-muted/50 shadow-sm transition-all hover:shadow-md"
+                  >
+                    <CardContent className="p-6">
+                      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <h3 className="text-xl font-semibold">{card.title}</h3>
+                      <p className="mt-2 text-muted-foreground">
+                        {card.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                )
+              })}
             </div>
           </div>
         </section>
 
-        {/* Projects Section - Now before Experience */}
-        <section id="projects" className="bg-muted/30 py-16 md:py-24">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="mx-auto max-w-3xl text-center">
-              <Badge className="mb-4" variant="outline">
-                My Work
-              </Badge>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Projects</h2>
-              <p className="mt-4 text-muted-foreground md:text-lg">
-                Selected work across AI applications, developer tooling, and
-                full-stack product experiments.
-              </p>
-            </div>
-
-            <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              <ProjectCard
-                title="Living Application Documentation"
-                description="An AI-powered documentation retrieval system developed for Paychex that provides conversational access to internal documentation. The solution streamlines information discovery and improves documentation accessibility for team members."
-                image="/images/living-doc-app.png"
-                link="https://github.com/paychex/Living-Application-Documentation"
-                tags={["React", "Azure AI", "Python", "Agile"]}
-              />
-              <ProjectCard
-                title="Cryptocurrency Trading Simulator"
-                description="A comprehensive platform that allows users to simulate cryptocurrency trading without risking real money. Features include real-time price tracking, portfolio management, and performance analytics."
-                image="/images/crypto.png"
-                link="https://github.com/gabrielrosendo/CRYPTO50"
-                tags={["Python", "Flask", "SQLite", "API Integration"]}
-              />
-              <ProjectCard
-                title="Calorie Tracking App"
-                description="An iOS application for tracking daily calorie intake and macronutrients."
-                image="/images/caltrack.png"
-                link="https://github.com/gabrielrosendo/CalTrack?tab=readme-ov-file"
-                tags={["Swift"]}
-              />
-              <ProjectCard
-                title="Bookstore Web Application"
-                description="A web application that allows users to search for books in a database and view their details."
-                image="/images/bookstore.png"
-                link="https://github.com/gabrielrosendo/sortedTale"
-                tags={["MongoDB", "Python", "Flask", "CSS", "JavaScript"]}
-              />
-              <TextProjectCard
-                title="C-Like Language Compiler"
-                description="A compiler for a C-like programming language built from scratch. Implements lexical analysis, syntax analysis, semantic analysis, optimization, and MIPS code generation. Designed and tested grammar rules to support while loops, variable/array declarations, function calls, and conditional statements."
-                link="https://github.com/gabrielrosendo/my-compiler"
-                tags={["C", "Yacc", "Lex", "Compiler Design", "AST"]}
-              />
-              <TextProjectCard
-                title="AI-Powered Flashcard Generator"
-                description="An intelligent tool that extracts key information from PowerPoint presentations and automatically generates study flashcards using OpenAI's language model."
-                link="https://github.com/gabrielrosendo/flashcard-generator"
-                tags={["Python", "OpenAI API", "ML"]}
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Experience Section - Now after Projects */}
         <section id="experience" className="py-16 md:py-24">
           <div className="container mx-auto px-4 md:px-6">
             <div className="mx-auto max-w-3xl text-center">
               <Badge className="mb-4" variant="outline">
-                Work History
+                {copy.experience.badge}
               </Badge>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Professional Experience</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                {copy.experience.title}
+              </h2>
               <p className="mt-4 text-muted-foreground md:text-lg">
-                Roles and systems that shaped how I build backend, AI, and
-                data-heavy products.
+                {copy.experience.description}
               </p>
             </div>
 
             <div className="mt-16 space-y-12">
-              {/* Mindex Experience */}
-              <div className="relative border-l border-muted-foreground/20 pl-8 before:absolute before:left-[-8px] before:top-0 before:h-4 before:w-4 before:rounded-full before:bg-primary before:content-['']">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                  <h3 className="text-xl font-semibold">AI Platform Engineer</h3>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="h-4 w-4" />
-                    <span>June 2025 - Present</span>
+              {copy.experience.items.map((item) => (
+                <div
+                  key={`${item.title}-${item.period}`}
+                  className="relative border-l border-muted-foreground/20 pl-8 before:absolute before:left-[-8px] before:top-0 before:h-4 before:w-4 before:rounded-full before:bg-primary before:content-['']"
+                >
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <h3 className="text-xl font-semibold">{item.title}</h3>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Calendar className="h-4 w-4" />
+                      <span>{item.period}</span>
+                    </div>
+                  </div>
+                  <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
+                    <Building className="h-4 w-4" />
+                    <span>{item.company}</span>
+                  </div>
+                  <div className="mt-4">
+                    {item.summaryTitle ? (
+                      <p className="font-medium">{item.summaryTitle}</p>
+                    ) : null}
+                    <ul className="mt-2 space-y-2 text-muted-foreground">
+                      {item.bullets.map((bullet) => (
+                        <li key={bullet} className="flex gap-2">
+                          <span className="text-primary">•</span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-                <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
-                  <Building className="h-4 w-4" />
-                  <span>Mindex | Rochester, NY (Remote)</span>
-                </div>
-                <div className="mt-4">
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li className="flex gap-2">
-                      <span className="text-primary">•</span>
-                      <span>
-                        Develop and maintain an internal LLM-powered chat and
-                        agent platform supporting 19,000+ employees.
-                      </span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-primary">•</span>
-                      <span>
-                        Architect stateful agent workflows in LangGraph for
-                        multi-step reasoning and tool execution.
-                      </span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-primary">•</span>
-                      <span>
-                        Design MCP servers, model abstraction layers, and
-                        Terraform-backed infrastructure for production-grade AI
-                        systems.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Animistic Experience */}
-              <div className="relative border-l border-muted-foreground/20 pl-8 before:absolute before:left-[-8px] before:top-0 before:h-4 before:w-4 before:rounded-full before:bg-primary before:content-['']">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                  <h3 className="text-xl font-semibold">AI Engineer - Contract</h3>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="h-4 w-4" />
-                    <span>May 2025 - June 2025</span>
-                  </div>
-                </div>
-                <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
-                  <Building className="h-4 w-4" />
-                  <span>Animistic.AI | Phoenix, AZ</span>
-                </div>
-                <div className="mt-4">
-                  <ul className="mt-2 space-y-2 text-muted-foreground">
-                    <li className="flex gap-2">
-                      <span className="text-primary">•</span>
-                      <span>
-                        Prototyped AI-powered digital workspace tools,
-                        including meeting agents that transcribe, summarize,
-                        and surface insights through a RAG-based retrieval
-                        system.
-                      </span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-primary">•</span>
-                      <span>
-                        Designed and validated multi-agent workflows to
-                        simulate AI knowledge workers and reduce manual
-                        information-gathering overhead.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Paychex Experience */}
-              <div className="relative border-l border-muted-foreground/20 pl-8 before:absolute before:left-[-8px] before:top-0 before:h-4 before:w-4 before:rounded-full before:bg-primary before:content-['']">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                  <h3 className="text-xl font-semibold">AI Intern (Capstone)</h3>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="h-4 w-4" />
-                    <span>August 2024 - April 2025</span>
-                  </div>
-                </div>
-                <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
-                  <Building className="h-4 w-4" />
-                  <span>Paychex | Phoenix, AZ</span>
-                </div>
-                <div className="mt-4">
-                  <p className="font-medium">AI-Driven Documentation Retrieval System</p>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li className="flex gap-2">
-                      <span className="text-primary">•</span>
-                      <span>
-                        Built an AI-powered documentation retrieval system with
-                        Azure AI Services and React, reducing document search
-                        time and improving knowledge accessibility.
-                      </span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-primary">•</span>
-                      <span>
-                        Worked in an Agile delivery environment and translated
-                        internal documentation needs into a usable AI assistant
-                        experience.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* BrandSafway Experience */}
-              <div className="relative border-l border-muted-foreground/20 pl-8 before:absolute before:left-[-8px] before:top-0 before:h-4 before:w-4 before:rounded-full before:bg-primary before:content-['']">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                  <h3 className="text-xl font-semibold">Project Controls Coordinator</h3>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="h-4 w-4" />
-                    <span>August 2024 - March 2025</span>
-                  </div>
-                </div>
-                <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
-                  <Building className="h-4 w-4" />
-                  <span>BrandSafway | Tempe, AZ</span>
-                </div>
-                <div className="mt-4">
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li className="flex gap-2">
-                      <span className="text-primary">•</span>
-                      <span>
-                        Coordinated scaffolding projects at the Intel Ocotillo
-                        campus in Chandler, Arizona.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Skills Section */}
+        <section id="projects" className="bg-muted/30 py-16 md:py-24">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="mx-auto max-w-3xl text-center">
+              <Badge className="mb-4" variant="outline">
+                {copy.projects.badge}
+              </Badge>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                {copy.projects.title}
+              </h2>
+              <p className="mt-4 text-muted-foreground md:text-lg">
+                {copy.projects.description}
+              </p>
+            </div>
+
+            <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {copy.projects.imageItems.map((project) => (
+                <ProjectCard
+                  key={project.title}
+                  title={project.title}
+                  description={project.description}
+                  image={project.image || "/placeholder.svg"}
+                  link={project.link}
+                  tags={project.tags}
+                  ctaLabel={copy.controls.viewOnGithub}
+                />
+              ))}
+              {copy.projects.textItems.map((project) => (
+                <TextProjectCard
+                  key={project.title}
+                  title={project.title}
+                  description={project.description}
+                  link={project.link}
+                  tags={project.tags}
+                  ctaLabel={copy.controls.viewOnGithub}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section id="skills" className="bg-muted/30 py-16 md:py-24">
           <div className="container mx-auto px-4 md:px-6">
             <div className="mx-auto max-w-3xl text-center">
               <Badge className="mb-4" variant="outline">
-                Expertise
+                {copy.skills.badge}
               </Badge>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Technical Skills</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                {copy.skills.title}
+              </h2>
               <p className="mt-4 text-muted-foreground md:text-lg">
-                Core technologies I use across backend engineering, AI system
-                design, and production delivery.
+                {copy.skills.description}
               </p>
             </div>
 
             <div className="mt-16">
-              <TechStack />
+              <TechStack categories={copy.skills.categories} />
             </div>
           </div>
         </section>
 
-        {/* Education Section */}
         <section id="education" className="py-16 md:py-24">
           <div className="container mx-auto px-4 md:px-6">
             <div className="mx-auto max-w-3xl text-center">
               <Badge className="mb-4" variant="outline">
-                Learning Journey
+                {copy.education.badge}
               </Badge>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Education</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                {copy.education.title}
+              </h2>
               <p className="mt-4 text-muted-foreground md:text-lg">
-                My academic background and educational experiences.
+                {copy.education.description}
               </p>
             </div>
 
             <div className="mt-16">
-              <Education />
+              <Education entries={copy.education.entries} />
             </div>
           </div>
         </section>
 
-        {/* Contact Section */}
         <section id="contact" className="bg-muted/30 py-16 md:py-24">
           <div className="container mx-auto px-4 md:px-6">
             <div className="mx-auto max-w-3xl text-center">
               <Badge className="mb-4" variant="outline">
-                Get In Touch
+                {copy.contact.badge}
               </Badge>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Let's Connect</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                {copy.contact.title}
+              </h2>
               <p className="mt-4 text-muted-foreground md:text-lg">
-                Open to software engineering opportunities focused on backend
-                platforms, applied AI systems, and intelligent internal tools.
+                {copy.contact.description}
               </p>
             </div>
 
@@ -486,11 +387,11 @@ export default function Page() {
                 <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
                   <Mail className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold">Email</h3>
+                <h3 className="text-xl font-semibold">{copy.controls.email}</h3>
                 <p className="mt-2 text-muted-foreground">gabrielrosendo72@gmail.com</p>
                 <Link href="mailto:gabrielrosendo72@gmail.com" className="mt-4">
                   <Button variant="outline" size="sm">
-                    Send Email
+                    {copy.controls.sendEmail}
                   </Button>
                 </Link>
               </Card>
@@ -499,11 +400,15 @@ export default function Page() {
                 <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
                   <Linkedin className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold">LinkedIn</h3>
-                <p className="mt-2 text-muted-foreground">Connect with me on LinkedIn</p>
-                <Link href="https://www.linkedin.com/in/gabriel-marcelino-887766243/" target="_blank" className="mt-4">
+                <h3 className="text-xl font-semibold">{copy.controls.linkedin}</h3>
+                <p className="mt-2 text-muted-foreground">{copy.contact.linkedinDescription}</p>
+                <Link
+                  href="https://www.linkedin.com/in/gabriel-marcelino-887766243/"
+                  target="_blank"
+                  className="mt-4"
+                >
                   <Button variant="outline" size="sm">
-                    View Profile
+                    {copy.controls.viewProfile}
                   </Button>
                 </Link>
               </Card>
@@ -516,14 +421,14 @@ export default function Page() {
         <div className="container mx-auto px-4 py-8 md:px-6">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
                 GM
               </div>
               <p className="text-sm font-medium">Gabriel Marcelino</p>
             </div>
 
             <p className="text-center text-sm text-muted-foreground md:text-left">
-              © 2024 Gabriel Marcelino. All rights reserved.
+              © {currentYear} Gabriel Marcelino. {copy.footer.rights}
             </p>
 
             <div className="flex gap-4">
@@ -543,7 +448,10 @@ export default function Page() {
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
               </Link>
-              <Link href="mailto:gabrielrosendo72@gmail.com" className="text-muted-foreground hover:text-foreground">
+              <Link
+                href="mailto:gabrielrosendo72@gmail.com"
+                className="text-muted-foreground hover:text-foreground"
+              >
                 <Mail className="h-5 w-5" />
                 <span className="sr-only">Email</span>
               </Link>

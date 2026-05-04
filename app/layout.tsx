@@ -8,9 +8,10 @@ import type React from "react" // Import React
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Gabriel Marcelino | AI Platform Engineer",
+  title:
+    "Gabriel Marcelino | Software Engineer | Backend & AI Systems | Engenheiro de Software | Backend e Sistemas de IA",
   description:
-    "Portfolio of Gabriel Marcelino, a Phoenix-based software engineer focused on backend and applied AI systems including LangGraph agents, MCP servers, RAG workflows, and cloud infrastructure.",
+    "Bilingual portfolio of Gabriel Marcelino, a Phoenix-based software engineer focused on backend and applied AI systems, including LangGraph agents, MCP servers, RAG workflows, and cloud infrastructure.",
   generator: "v0.dev",
 }
 

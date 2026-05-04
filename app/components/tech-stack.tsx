@@ -1,48 +1,14 @@
 import { Card } from "@/components/ui/card"
+import type { TechnologyCategory } from "@/lib/portfolio-content"
 
-const technologies = [
-  {
-    category: "Programming Languages",
-    skills: ["Python", "JavaScript", "Java", "C++"],
-  },
-  {
-    category: "AI & LLM Systems",
-    skills: [
-      "LangGraph",
-      "LLM Tool-Calling",
-      "MCP Servers",
-      "Model Abstraction Layers",
-      "Azure AI Services",
-      "TensorFlow",
-      "RAG",
-    ],
-  },
-  {
-    category: "Frontend & Data",
-    skills: ["React", "SQL", "MongoDB"],
-  },
-  {
-    category: "Cloud & DevOps",
-    skills: [
-      "AWS",
-      "Microsoft Azure",
-      "Terraform",
-      "CI/CD",
-      "Git",
-      "Linux",
-      "Jira",
-    ],
-  },
-  {
-    category: "Certifications",
-    skills: ["AWS Certified Cloud Practitioner"],
-  },
-]
+interface TechStackProps {
+  categories: TechnologyCategory[]
+}
 
-export default function TechStack() {
+export default function TechStack({ categories }: TechStackProps) {
   return (
     <div className="grid gap-8 md:grid-cols-2">
-      {technologies.map((tech) => (
+      {categories.map((tech) => (
         <Card key={tech.category} className="p-6">
           <h3 className="text-lg font-semibold mb-4">{tech.category}</h3>
           <div className="flex flex-wrap gap-2">
