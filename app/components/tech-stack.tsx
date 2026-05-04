@@ -3,19 +3,39 @@ import { Card } from "@/components/ui/card"
 const technologies = [
   {
     category: "Programming Languages",
-    skills: ["Python", "Java", "C++", "JavaScript", "HTML/CSS", "React.js", "Swift"],
+    skills: ["Python", "JavaScript", "Java", "C++"],
   },
   {
-    category: "Database Management",
-    skills: ["SQL", "MongoDB"],
+    category: "AI & LLM Systems",
+    skills: [
+      "LangGraph",
+      "LLM Tool-Calling",
+      "MCP Servers",
+      "Model Abstraction Layers",
+      "Azure AI Services",
+      "TensorFlow",
+      "RAG",
+    ],
+  },
+  {
+    category: "Frontend & Data",
+    skills: ["React", "SQL", "MongoDB"],
   },
   {
     category: "Cloud & DevOps",
-    skills: ["AWS (Certified Cloud Practitioner)", "Microsoft Azure", "Linux", "Git"],
+    skills: [
+      "AWS",
+      "Microsoft Azure",
+      "Terraform",
+      "CI/CD",
+      "Git",
+      "Linux",
+      "Jira",
+    ],
   },
   {
-    category: "Tools & Frameworks",
-    skills: ["Django", "TensorFlow", "Jira", "Agile/Scrum"],
+    category: "Certifications",
+    skills: ["AWS Certified Cloud Practitioner"],
   },
 ]
 

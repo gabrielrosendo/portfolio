@@ -48,7 +48,8 @@ export default function Page() {
           <div className="ml-auto flex items-center gap-2">
             <ThemeToggle />
             <Link
-              href="https://o4oavsqloi7a95at.public.blob.vercel-storage.com/RESUME_GMARCELINO-21Q0hjTu69MMJzI1OSHxI3wBM2oSEb.pdf"
+              href="/Gabriel-Marcelino-Resume.docx"
+              download
               target="_blank"
             >
               <Button variant="outline" className="gap-2">
@@ -72,18 +73,32 @@ export default function Page() {
               <div className="flex flex-col space-y-6">
                 <div>
                   <Badge className="mb-4 px-3 py-1 text-sm" variant="outline">
-                    Software Developer
+                    AI Platform Engineer
                   </Badge>
                   <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl/none">
                     Gabriel <span className="text-primary">Marcelino</span>
                   </h1>
                   <p className="mt-4 max-w-[600px] text-muted-foreground md:text-xl">
-                    Coding, learning, and making data work smarter.
+                    Software engineer focused on backend and applied AI systems,
+                    from LangGraph agents and MCP servers to retrieval workflows
+                    and cloud infrastructure.
                   </p>
                   <div className="mt-4 flex items-center gap-2 text-muted-foreground">
                     <Building className="h-4 w-4" />
-                    <span>Phoenix, AZ 85017</span>
+                    <span>Phoenix, AZ</span>
                   </div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "LLM platform engineering",
+                    "LangGraph agent workflows",
+                    "MCP servers + tool calling",
+                    "Cloud infrastructure",
+                  ].map((item) => (
+                    <Badge key={item} variant="secondary" className="px-3 py-1">
+                      {item}
+                    </Badge>
+                  ))}
                 </div>
                 <div className="flex flex-wrap gap-3">
                   <Link href="https://github.com/gabrielrosendo" target="_blank">
@@ -143,12 +158,15 @@ export default function Page() {
               <Badge className="mb-4" variant="outline">
                 About Me
               </Badge>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">My Journey in Tech</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                Building Production AI Systems
+              </h2>
               <p className="mt-4 text-muted-foreground md:text-lg">
-                As a senior Computer Science student at Grand Canyon University, specializing in Big Data Analytics, I
-                have developed a strong foundation in software development, data analysis, and machine learning.
-                Graduating in April 2025, I am looking for an entry-level software developer role where I can apply my
-                skills to build intelligent, data-driven solutions.
+                I build backend and applied AI systems that turn LLM ideas into
+                practical products. At Mindex, I help maintain an internal
+                chat and agent platform used by 19,000+ employees. Before that,
+                I prototyped RAG-based meeting agents at Animistic.AI and built
+                an Azure-powered documentation assistant at Paychex.
               </p>
             </div>
 
@@ -158,9 +176,11 @@ export default function Page() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <Code className="h-6 w-6" />
                   </div>
-                  <h3 className="text-xl font-semibold">Programming Languages</h3>
+                  <h3 className="text-xl font-semibold">Backend Engineering</h3>
                   <p className="mt-2 text-muted-foreground">
-                    Proficient in Python, Java, C++, JavaScript, HTML/CSS, React.js, and Swift for software development.
+                    Python-first development across APIs, integrations,
+                    JavaScript services, and systems that need to stay reliable
+                    in production.
                   </p>
                 </CardContent>
               </Card>
@@ -169,9 +189,10 @@ export default function Page() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <Server className="h-6 w-6" />
                   </div>
-                  <h3 className="text-xl font-semibold">Machine Learning & Data</h3>
+                  <h3 className="text-xl font-semibold">Applied AI Systems</h3>
                   <p className="mt-2 text-muted-foreground">
-                    Experience with TensorFlow, SQL, MongoDB, and cloud services like AWS and Azure.
+                    LangGraph agents, MCP servers, tool-calling, model
+                    abstraction layers, RAG workflows, and Azure AI Services.
                   </p>
                 </CardContent>
               </Card>
@@ -180,10 +201,10 @@ export default function Page() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <Database className="h-6 w-6" />
                   </div>
-                  <h3 className="text-xl font-semibold">Certifications & Tools</h3>
+                  <h3 className="text-xl font-semibold">Cloud & Delivery</h3>
                   <p className="mt-2 text-muted-foreground">
-                    AWS Certified Cloud Practitioner. Proficient with Git, Linux, Django, and Jira for project
-                    management.
+                    Terraform, AWS, Azure, CI/CD, Git, and Linux for shipping
+                    production-grade systems with clean developer workflows.
                   </p>
                 </CardContent>
               </Card>
@@ -200,7 +221,8 @@ export default function Page() {
               </Badge>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Projects</h2>
               <p className="mt-4 text-muted-foreground md:text-lg">
-                A collection of my recent work showcasing my skills and experience in various technologies.
+                Selected work across AI applications, developer tooling, and
+                full-stack product experiments.
               </p>
             </div>
 
@@ -258,7 +280,8 @@ export default function Page() {
               </Badge>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Professional Experience</h2>
               <p className="mt-4 text-muted-foreground md:text-lg">
-                My professional journey and the experience I've gained along the way.
+                Roles and systems that shaped how I build backend, AI, and
+                data-heavy products.
               </p>
             </div>
 
@@ -276,11 +299,74 @@ export default function Page() {
                   <Building className="h-4 w-4" />
                   <span>Mindex | Rochester, NY (Remote)</span>
                 </div>
+                <div className="mt-4">
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li className="flex gap-2">
+                      <span className="text-primary">•</span>
+                      <span>
+                        Develop and maintain an internal LLM-powered chat and
+                        agent platform supporting 19,000+ employees.
+                      </span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-primary">•</span>
+                      <span>
+                        Architect stateful agent workflows in LangGraph for
+                        multi-step reasoning and tool execution.
+                      </span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-primary">•</span>
+                      <span>
+                        Design MCP servers, model abstraction layers, and
+                        Terraform-backed infrastructure for production-grade AI
+                        systems.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
               </div>
+
+              {/* Animistic Experience */}
+              <div className="relative border-l border-muted-foreground/20 pl-8 before:absolute before:left-[-8px] before:top-0 before:h-4 before:w-4 before:rounded-full before:bg-primary before:content-['']">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <h3 className="text-xl font-semibold">AI Engineer - Contract</h3>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Calendar className="h-4 w-4" />
+                    <span>May 2025 - June 2025</span>
+                  </div>
+                </div>
+                <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
+                  <Building className="h-4 w-4" />
+                  <span>Animistic.AI | Phoenix, AZ</span>
+                </div>
+                <div className="mt-4">
+                  <ul className="mt-2 space-y-2 text-muted-foreground">
+                    <li className="flex gap-2">
+                      <span className="text-primary">•</span>
+                      <span>
+                        Prototyped AI-powered digital workspace tools,
+                        including meeting agents that transcribe, summarize,
+                        and surface insights through a RAG-based retrieval
+                        system.
+                      </span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-primary">•</span>
+                      <span>
+                        Designed and validated multi-agent workflows to
+                        simulate AI knowledge workers and reduce manual
+                        information-gathering overhead.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
               {/* Paychex Experience */}
               <div className="relative border-l border-muted-foreground/20 pl-8 before:absolute before:left-[-8px] before:top-0 before:h-4 before:w-4 before:rounded-full before:bg-primary before:content-['']">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                  <h3 className="text-xl font-semibold">Software Engineer Apprenticeship</h3>
+                  <h3 className="text-xl font-semibold">AI Intern (Capstone)</h3>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Calendar className="h-4 w-4" />
                     <span>August 2024 - April 2025</span>
@@ -292,24 +378,21 @@ export default function Page() {
                 </div>
                 <div className="mt-4">
                   <p className="font-medium">AI-Driven Documentation Retrieval System</p>
-                  <ul className="mt-2 space-y-2 text-muted-foreground">
+                  <ul className="space-y-2 text-muted-foreground">
                     <li className="flex gap-2">
                       <span className="text-primary">•</span>
                       <span>
-                        Collaborated with Paychex to develop an AI-driven solution for retrieving project documentation.
+                        Built an AI-powered documentation retrieval system with
+                        Azure AI Services and React, reducing document search
+                        time and improving knowledge accessibility.
                       </span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-primary">•</span>
                       <span>
-                        Developed an AI chatbot using Azure AI Services and React for the front end to provide users
-                        with precise, conversational access to internal documentation.
-                      </span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-primary">•</span>
-                      <span>
-                        Gained hands-on experience with Agile methodology, and utilized Jira for project management.
+                        Worked in an Agile delivery environment and translated
+                        internal documentation needs into a usable AI assistant
+                        experience.
                       </span>
                     </li>
                   </ul>
@@ -333,61 +416,9 @@ export default function Page() {
                   <ul className="space-y-2 text-muted-foreground">
                     <li className="flex gap-2">
                       <span className="text-primary">•</span>
-                      <span>Documented, analyzed, and reported project data to track progress.</span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-primary">•</span>
                       <span>
-                        Assisted in planning and managing project workflows by maintaining accurate data records and
-                        identifying trends to improve efficiency.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Project Controls Intern */}
-              <div className="relative border-l border-muted-foreground/20 pl-8 before:absolute before:left-[-8px] before:top-0 before:h-4 before:w-4 before:rounded-full before:bg-primary before:content-['']">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                  <h3 className="text-xl font-semibold">Project Controls Intern</h3>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="h-4 w-4" />
-                    <span>May 2024 - August 2024</span>
-                  </div>
-                </div>
-                <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
-                  <Building className="h-4 w-4" />
-                  <span>BrandSafway | Tempe, AZ</span>
-                </div>
-              </div>
-
-              {/* GCE Experience */}
-              <div className="relative border-l border-muted-foreground/20 pl-8 before:absolute before:left-[-8px] before:top-0 before:h-4 before:w-4 before:rounded-full before:bg-primary before:content-['']">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                  <h3 className="text-xl font-semibold">IT Support Representative</h3>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="h-4 w-4" />
-                    <span>September 2022 - May 2024</span>
-                  </div>
-                </div>
-                <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
-                  <Building className="h-4 w-4" />
-                  <span>Grand Canyon Education | Phoenix, AZ</span>
-                </div>
-                <div className="mt-4">
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li className="flex gap-2">
-                      <span className="text-primary">•</span>
-                      <span>
-                        Resolved a diverse range of technical issues across multiple systems and applications for
-                        students.
-                      </span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-primary">•</span>
-                      <span>
-                        Maintained detailed documentation of requests and resolutions, adhering to established
-                        guidelines.
+                        Coordinated scaffolding projects at the Intel Ocotillo
+                        campus in Chandler, Arizona.
                       </span>
                     </li>
                   </ul>
@@ -406,7 +437,8 @@ export default function Page() {
               </Badge>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Technical Skills</h2>
               <p className="mt-4 text-muted-foreground md:text-lg">
-                A comprehensive overview of my technical expertise and tools I work with.
+                Core technologies I use across backend engineering, AI system
+                design, and production delivery.
               </p>
             </div>
 
@@ -444,7 +476,8 @@ export default function Page() {
               </Badge>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Let's Connect</h2>
               <p className="mt-4 text-muted-foreground md:text-lg">
-                Open to new opportunities in software development, data analysis, and machine learning.
+                Open to software engineering opportunities focused on backend
+                platforms, applied AI systems, and intelligent internal tools.
               </p>
             </div>
 
