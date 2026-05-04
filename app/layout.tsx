@@ -1,11 +1,20 @@
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google"
 import "./globals.css"
 import type React from "react" // Import React
 
-const inter = Inter({ subsets: ["latin"] })
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-display",
+})
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500"],
+})
 
 export const metadata: Metadata = {
   title:
@@ -22,7 +31,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("min-h-screen bg-background font-sans antialiased", inter.className)}>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          spaceGrotesk.variable,
+          ibmPlexMono.variable
+        )}
+      >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>

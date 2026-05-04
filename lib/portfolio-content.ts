@@ -178,7 +178,7 @@ export const portfolioContent: Record<Locale, PortfolioContent> = {
           tags: ["React", "Azure AI", "Python", "Agile"],
         },
         {
-          title: "Simulador de Trading de Criptomoedas",
+          title: "Cryptocurrency Trading Simulator",
           description:
             "A comprehensive platform that allows users to simulate cryptocurrency trading without risking real money. Features include real-time price tracking, portfolio management, and performance analytics.",
           image: "/images/crypto.png",
@@ -186,7 +186,7 @@ export const portfolioContent: Record<Locale, PortfolioContent> = {
           tags: ["Python", "Flask", "SQLite", "API Integration"],
         },
         {
-          title: "Aplicativo de Controle de Calorias",
+          title: "Calorie Tracking App",
           description:
             "An iOS application for tracking daily calorie intake and macronutrients.",
           image: "/images/caltrack.png",
@@ -194,7 +194,7 @@ export const portfolioContent: Record<Locale, PortfolioContent> = {
           tags: ["Swift"],
         },
         {
-          title: "Aplicação Web de Livraria",
+          title: "Bookstore Web Application",
           description:
             "A web application that allows users to search for books in a database and view their details.",
           image: "/images/bookstore.png",
@@ -204,14 +204,14 @@ export const portfolioContent: Record<Locale, PortfolioContent> = {
       ],
       textItems: [
         {
-          title: "Compilador de Linguagem Similar a C",
+          title: "C-Like Language Compiler",
           description:
             "A compiler for a C-like programming language built from scratch. Implements lexical analysis, syntax analysis, semantic analysis, optimization, and MIPS code generation. Designed and tested grammar rules to support while loops, variable and array declarations, function calls, and conditional statements.",
           link: "https://github.com/gabrielrosendo/my-compiler",
           tags: ["C", "Yacc", "Lex", "Compiler Design", "AST"],
         },
         {
-          title: "Gerador de Flashcards com IA",
+          title: "AI-Powered Flashcard Generator",
           description:
             "An intelligent tool that extracts key information from PowerPoint presentations and automatically generates study flashcards using OpenAI's language model.",
           link: "https://github.com/gabrielrosendo/flashcard-generator",
