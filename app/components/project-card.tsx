@@ -21,26 +21,40 @@ export default function ProjectCard({
   ctaLabel,
 }: ProjectCardProps) {
   return (
-    <Card className="overflow-hidden">
-      <div className="relative aspect-video">
-        <Image src={image || "/placeholder.svg"} alt={title} fill className="object-cover" />
+    <Card className="surface-panel group h-full overflow-hidden rounded-[28px] border-0">
+      <div className="relative aspect-video overflow-hidden">
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/35 via-black/10 to-transparent opacity-90" />
+        <Image
+          src={image || "/placeholder.svg"}
+          alt={title}
+          fill
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+        />
       </div>
-      <CardContent className="p-4">
-        <h3 className="font-semibold text-xl mb-2">{title}</h3>
-        <p className="text-sm text-muted-foreground mb-4">{description}</p>
+      <CardContent className="p-6">
+        <h3 className="mb-3 text-xl font-semibold leading-snug text-balance md:text-2xl">
+          {title}
+        </h3>
+        <p className="mb-5 text-sm leading-7 text-muted-foreground">
+          {description}
+        </p>
         <div className="flex flex-wrap gap-2">
           {tags.map((tag) => (
             <span
               key={tag}
-              className="inline-flex items-center rounded-md bg-muted px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10"
+              className="inline-flex items-center rounded-full border border-border/70 bg-background/70 px-3 py-1 text-[11px] font-medium tracking-[0.08em] text-muted-foreground"
             >
               {tag}
             </span>
           ))}
         </div>
       </CardContent>
-      <CardFooter className="p-4 pt-0">
-        <Link href={link} target="_blank" className="inline-flex items-center gap-2 text-sm hover:underline">
+      <CardFooter className="p-6 pt-0">
+        <Link
+          href={link}
+          target="_blank"
+          className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-transform duration-300 group-hover:translate-x-1"
+        >
           <Github className="h-4 w-4" />
           {ctaLabel}
         </Link>
